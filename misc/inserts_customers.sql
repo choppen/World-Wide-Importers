@@ -1,0 +1,5 @@
+ALTER TABLE customers
+ADD EmailAddress VARCHAR(256) NOT NULL;
+
+ALTER TABLE customers
+ADD HashedPassword LONGBLOB NOT NULL;

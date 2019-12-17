@@ -33,16 +33,16 @@
             <div>
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a href="#" target="_blank"> <img src="http://pluspng.com/img-png/instagram-png-instagram-png-logo-1455.png" height="30">
+                        <a href="https://www.instagram.com/" target="_blank"> <img src="http://pluspng.com/img-png/instagram-png-instagram-png-logo-1455.png" height="30">
                     </li>
                     <li class="nav-item">
-                        <a href="#" target="_blank"> <img src="https://en.facebookbrand.com/wp-content/uploads/2019/04/f_logo_RGB-Hex-Blue_512.png" height="30">
+                        <a href="https://www.facebook.com/Wide-World-Importers-101370771314253/" target="_blank"> <img src="https://en.facebookbrand.com/wp-content/uploads/2019/04/f_logo_RGB-Hex-Blue_512.png" height="30">
                     </li>
                     <li class="nav-item">
-                        <a href="#" target="_blank"> <img src="http://pngimg.com/uploads/twitter/twitter_PNG9.png" height="30">
+                        <a href="https://twitter.com/" target="_blank"> <img src="http://pngimg.com/uploads/twitter/twitter_PNG9.png" height="30">
                     </li>
                     <li class="nav-item">
-                        <a href="#" target="_blank"> <img src="https://www.2ndvote.com/wp-content/uploads/2019/06/112-1126845_pinterest-logo-circle-p-in-red-png-logos-do-pinterest-png.jpg" height="30">
+                        <a href="https://nl.pinterest.com/wwideimports/" target="_blank"> <img src="https://www.2ndvote.com/wp-content/uploads/2019/06/112-1126845_pinterest-logo-circle-p-in-red-png-logos-do-pinterest-png.jpg" height="30">
                 </ul>
             </div>
         </div>

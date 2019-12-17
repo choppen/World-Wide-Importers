@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!doctype html>
 <html lang="en">
 
@@ -53,7 +56,16 @@
 
             <!-- login button -->
             <div class="col-2 align-self-center text-center">
-                <a href="login.php" style="color: white; margin: 0 auto;"> Inloggen <a>
+                <?php
+                if(!isset($_SESSION['CustomerID'])) {
+                    print('<a href="login.php" style="color: white; margin: 0 auto;"> Inloggen <a>');
+                } else {
+                    print('<form method=post action=logout.php>
+                    <button type="submit" name="logout">Uitloggen</button>
+                    </form>');
+                }
+                ?>
+                <!-- <a href="login.php" style="color: white; margin: 0 auto;"> Inloggen <a> -->
                 <a href="shoppingcart.php"><i class="fa fa-shopping-cart fa-lg"></i></a>
             </div>
 
@@ -94,9 +106,7 @@
 
                 <?php
                 if (isset($_GET['select'])){
-
                     print ('
-
                         <div class="dropdown">
                             <a class="btn btn-outline-light dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown">
                                 Paginatie: '. $_GET["select"] .'

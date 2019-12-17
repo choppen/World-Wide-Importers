@@ -100,14 +100,29 @@
                     // met de onderstaande knoppen kan je naar de volgende pagina met Results gaan.
                     // door $pageNumber aan te passen worden de waardes van de limit in de query aangepast zodat de juiste producten verstuurd worden
                     // alle variablen worden hier weer in de link gezet anders kunnen deze niet meer gebruikt worden op de volgende pagina met Results
-                    print('<a  class="btn btn-primary" href="Results.php?cat='.$_GET["cat"].'&search='. $_GET["search"].'&select=' . $_GET["select"].'"> first </a>');
-                    print('<a  class="btn btn-primary" href="Results.php?cat='.$_GET["cat"].'&search='. $_GET["search"].'&select=' . $_GET["select"].'&pagenr=' . ($pageNumber -1). '"> prev </a>');
-                    print('<a  class="btn btn-primary" href="Results.php?cat='.$_GET["cat"].'&search='. $_GET["search"].'&select=' . $_GET["select"].'&pagenr=' . ($pageNumber +1). '"> prev </a>');            
-                    print('<a  class="btn btn-primary" href="Results.php?cat='.$_GET["cat"].'&search='. $_GET["search"].'&select=' . $_GET["select"].'&pagenr=' . $numberOfPages. '"> last </a>');
-                    
-
+                    if ($pageNumber <=1) {
+                        print('<div class="btn-group" role="group" aria-label="Basic example">');
+                            print('<a  class="btn btn-secondary disabled"> eerste </a>');
+                            print('<a  class="btn btn-secondary disabled"> vorige </a>');
+                            print('<a  class="btn btn-secondary" href="Results.php?cat='.$_GET["cat"].'&search='. $_GET["search"].'&select=' . $_GET["select"].'&pagenr=' . ($pageNumber +1). '"> volgende </a>');
+                            print('<a  class="btn btn-secondary" href="Results.php?cat='.$_GET["cat"].'&search='. $_GET["search"].'&select=' . $_GET["select"].'&pagenr=' . $numberOfPages. '"> laatste </a>');
+                        print('</div>');
+                    } elseif ($pageNumber >= $numberOfPages){
+                        print('<div class="btn-group" role="group" aria-label="Basic example">');
+                            print('<a  class="btn btn-secondary" href="Results.php?cat='.$_GET["cat"].'&search='. $_GET["search"].'&select=' . $_GET["select"].'"> eerste </a>');
+                            print('<a  class="btn btn-secondary" href="Results.php?cat='.$_GET["cat"].'&search='. $_GET["search"].'&select=' . $_GET["select"].'&pagenr=' . ($pageNumber -1). '"> vorige </a>');
+                            print('<a  class="btn btn-secondary disabled"> volgende </a>');
+                            print('<a  class="btn btn-secondary disabled"> laatste </a>');
+                        print('</div>');
+                    } else {
+                        print('<div class="btn-group" role="group" aria-label="Basic example">');
+                            print('<a  class="btn btn-secondary" href="Results.php?cat='.$_GET["cat"].'&search='. $_GET["search"].'&select=' . $_GET["select"].'"> eerste </a>');
+                            print('<a  class="btn btn-secondary" href="Results.php?cat='.$_GET["cat"].'&search='. $_GET["search"].'&select=' . $_GET["select"].'&pagenr=' . ($pageNumber -1). '"> vorige </a>');
+                            print('<a  class="btn btn-secondary" href="Results.php?cat='.$_GET["cat"].'&search='. $_GET["search"].'&select=' . $_GET["select"].'&pagenr=' . ($pageNumber +1). '"> volgende </a>');
+                            print('<a  class="btn btn-secondary" href="Results.php?cat='.$_GET["cat"].'&search='. $_GET["search"].'&select=' . $_GET["select"].'&pagenr=' . $numberOfPages. '"> laatste </a>');
+                        print('</div>');
+                    }
                 }
-            
             ?>
 
         </div>

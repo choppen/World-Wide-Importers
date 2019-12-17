@@ -18,6 +18,7 @@
 
         <!-- Functie Includes -->
         <?php include_once 'Functions/DBConnections.php'; ?>
+        <?php include_once 'Functions/api.php'; ?>
 
     </head>
 
@@ -45,13 +46,13 @@
         }   
 
             // Variabeleid haalt het id van het gezoken product  uit de url
-            $productID = $_GET['id'];
+            $ProductID = $_GET['id'];
 
             //$Result houd de waarde die de db terug stuurd aan de hand van de onderstaande query
-            $query = ("SELECT s.StockItemName, s.RecommendedRetailPrice, s.MarketingComments, s.Photo, s.SearchDetails, h.QuantityOnHand
+            $query = ("SELECT s.StockItemName, s.RecommendedRetailPrice, s.MarketingComments, s.SearchDetails, h.QuantityOnHand
                 FROM stockitems s
                 JOIN stockitemholdings h ON s.StockItemID = h.StockItemID
-                WHERE s.StockItemID = $productID
+                WHERE s.StockItemID = $ProductID
                 ");
 
             $result = mysqli_query(dbConnectionRoot(), $query); // dbConnectionRoot staat onder (Functions/dbconnections.php)
@@ -64,77 +65,61 @@
                 while($row = mysqli_fetch_assoc($result)){
 
                     // onderstaande if else statement checkt of er een foto bij het product zit zo niet wordt de deafult image geladen
-                    if (empty($row['Photo'])) {
+                    if (empty($row['foto'])) {
 
                         $imgPath = ("Img/defaultProduct.jpg");
                         $imgBinary = fread(fopen($imgPath, "r"), filesize($imgPath));
                         $img = base64_encode($imgBinary);
-                    
+
                     } else {
-                        $img = base64_encode($row["Photo"]);
+                        $img = base64_encode($row["foto"]);
                     }
-                    
+
+
+
                     // onderstaande print plaatst de benodigde html op de pagina
-                    print("
-                        <div class=\"container-fluid\">
-                            <div class=\"row\">
-                                <div class=\"col-lg\">
-                                    <div class=\"container\" style=\"margin-top:30px\">
-                                        <div class=\"row\">
-                                            <div class=\"col-sm\">
-                                                <h2>PRODUCTNAAM: ". $row['StockItemName'] ."</h2>
-                                                <h6>Review systeem in sterren moet hier komen</h6>
-                                                <div class=\"row\">
-                                                    <div class=\"col-md-4\">
-                                                        <div class=\"thumbnail\">
-                                                            <a href=\"img/defaultproduct.jpg\">
-                                                                <img src=\"data:image/jpeg;base64, $img \" alt=\"Lights\" style=\"width:100%\">
-                                                                <div class=\"caption\">
-                                                                </div>
-                                                            </a>
-                                                        </div>
-                                                    </div>
-                                                    <div class=\"col-md-4\">
-                                                        <div class=\"thumbnail\">
-                                                            <a href=\"img/defaultproduct.jpg\">
-                                                            <img src=\"data:image/jpeg;base64, $img \" alt=\"Lights\" style=\"width:100%\">
-                                                                <div class=\"caption\">
-                                                                </div>
-                                                            </a>
-                                                        </div>
-                                                    </div>
+                    print('
+                        <div class="container shadow" style="margin-top: 25px;">
+                            <div class="row">
+                                <div class="col-lg">
+                                    <div class="container" style="margin-top:30px">
+                                        <div class="row">
+                                            <div class="col-sm">
+                                                <h2>PRODUCTNAAM: '. $row["StockItemName"] .'</h2>
+                                                <div class="row">
+                                                    <div class="col-md-7">
+                    ');
+
+                    include "Includes/imgCarousel.php";
+                    
+                    print('
+                                                    </div>  
                                                 </div>
                                                 <br>
-                                                <p class=\"font-weight-bold\">Productinformatie: </p>
-                                                <p>" . $row['MarketingComments']. "</p>
-                                                <p class=\"font-weight-bold\">Productbeschrijving: </p>
-                                                <p>". $row['SearchDetails'] ."</p>
-                                                <p class=\"font-weight-bold\">Video: </p>
-                                                <p>Link naar het filmmateriaal van het product: <a href=\"video.html\">Klik hier</a> </p>
+                                                <p class="font-weight-bold">Productinformatie: </p>
+                                                <p>' . $row["MarketingComments"]. '</p>
+                                                <p class="font-weight-bold">Productbeschrijving: </p>
+                                                <p>'. $row["SearchDetails"] .'</p>
                                             </div>
-                                            <div class=\"card border-dark mb-3\" style=\"max-width: 18rem\">
-                                                <div class=\"card-header\">
-                                                <h4 class=\"my-0 font-weight-normal\">Prijs</h4>
+                                            <div class="card border-dark mb-3" style="max-width: 18rem">
+                                                <div class="card-header">
+                                                <h4 class="my-0 font-weight-normal">Prijs</h4>
                                             </div>
-                                            <div class=\"card-body\">
-                                                <h1 class=\"card-title pricing-card-title\">$". $row['RecommendedRetailPrice'] ."</h1>
-                                                <ul class=\"list-unstyled mt-3 mb-4\">
-                                                    <li>". $row['QuantityOnHand'] ." stuk(s) voorradig</li>
-                                                    <br><br><br><br><br><br>
+                                            <div class="card-body">
+                                                <h1 class="card-title pricing-card-title">€'. round(($row["RecommendedRetailPrice"] * USDToEUR()),2) .'</h1>
+                                                <ul class="list-unstyled mt-3 mb-4">
+                                                    <li>'. $row["QuantityOnHand"] .' stuk(s) voorradig</li>
                                                 </ul>
-                                                <a class=\"btn btn-lg btn-block btn-outline-primary\" href=\"ProductPage.php?winkelwagen=true&knoppie=true&id=".$_GET['id']."\">in winkelmand</a>
+                                                <a class="btn btn-lg btn-block btn-outline-primary" href="ProductPage.php?winkelwagen=true&knoppie=true&id='.$_GET['id'].'">in winkelmand</a>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                ");
+                ');
                 }
             }
-
-        
-
 
         ?>
 
